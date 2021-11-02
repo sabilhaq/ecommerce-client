@@ -1,0 +1,52 @@
+.ProductItem {
+  width: 300px;
+  border: 1px solid gray;
+  border-radius: 4px;
+  padding: 4px;
+  margin-right: 30px;
+  margin-bottom: 30px;
+
+  .CardBody {
+    .Photo {
+      height: 200px;
+      background-color: gray;
+      margin-bottom: 10px;
+    }
+
+    .Title {
+      margin-bottom: 10px;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    
+    .Rate {
+      margin-bottom: 5px;
+    }
+
+    .Description {
+      margin-bottom: 10px;
+    }
+
+    .Price {
+      margin-bottom: 30px;
+      font-size: 36px;
+      font-weight: 600;
+    }
+  }
+
+  .CardFooter {
+    display: flex;
+    justify-content: flex-end;
+
+    .btn-detail {
+      background-color: #02bf4d;
+      color: #fff;
+      border-radius: 4px;
+      padding: 8px 12px;
+
+      &:hover {
+        background-color: #00a743;
+      }
+    }
+  }
+}

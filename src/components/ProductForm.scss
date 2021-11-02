@@ -1,0 +1,73 @@
+.ProductForm {
+  border-radius: 4px;
+  margin: 20px 35px;
+
+  .Header {
+    background-color: #1b7ddf;
+    color: #fff;
+    font-weight: bold;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding: 8px 20px;
+  }
+
+  .Body {
+    padding: 10px 5px 30px;
+    border: 1px solid #1b7ddf;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+
+    .Form {
+      display: flex;
+      flex-direction: column;
+
+      .Row {
+        display: flex;
+        margin-bottom: 12px;
+
+        .Label {
+          width: 300px;
+          text-align: right;
+          font-weight: bold;
+          margin-right: 30px;
+        }
+
+        .Input {
+          flex-grow: 1;
+          width: 100%;
+
+          input,
+          textarea {
+            border: 1px solid #bfbfbf;
+            border-radius: 4px;
+            width: 95%;
+            max-width: 95%;
+            padding: 5px 10px;
+          }
+
+          .btn {
+            color: #fff;
+            border-radius: 4px;
+            padding: 8px 12px;
+          }
+
+          .btn-add {
+            background-color: #00a743;
+            margin-right: 10px;
+
+            &:hover {
+              background-color: #007b31;
+            }
+          }
+          .btn-cancel {
+            background-color: #d59100;
+
+            &:hover {
+              background-color: #ac7600;
+            }
+          }
+        }
+      }
+    }
+  }
+}
