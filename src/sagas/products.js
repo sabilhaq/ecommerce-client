@@ -1,14 +1,14 @@
-import { all, takeEvery, put, call } from "redux-saga/effects";
-// import { v4 as uuidv4 } from "uuid";
-import * as actions from "../actions";
+import { all, takeEvery, put, call } from 'redux-saga/effects';
+import { v4 as uuidv4 } from 'uuid';
+import * as actions from '../actions';
 import {
   LOAD_PRODUCT,
-  // ADD_PRODUCT,
+  ADD_PRODUCT,
   // REMOVE_PRODUCT,
   // RESEND_PRODUCT,
-} from "../constant";
+} from '../constant';
 // import * as API from "../services/products";
-import * as GraphQL from "../services/graphql";
+import * as GraphQL from '../services/graphql';
 
 /*
 return dispatch => {
@@ -25,7 +25,6 @@ return dispatch => {
 
 function* loadProduct() {
   try {
-    console.log("sagas");
     const products = yield call(GraphQL.loadProducts);
     yield put(actions.loadProductSuccess(products));
   } catch (error) {
@@ -49,18 +48,19 @@ const id = uuidv4()
   }
 */
 
-// function* addProduct(payload) {
-//   const { title } = payload;
-//   const id = uuidv4();
-//   try {
-//     yield put(actions.drawAddProduct(id, title));
-//     const product = yield call(API.createProduct, title);
-//     yield put(actions.addProductSuccess(id, product));
-//   } catch (error) {
-//     console.log(error);
-//     yield put(actions.addProductFailure(id));
-//   }
-// }
+function* addProduct(payload) {
+  const { input } = payload;
+  const id = uuidv4();
+  try {
+    yield put(actions.drawAddProduct(id, input));
+
+    const product = yield call(GraphQL.addProduct, input);
+    yield put(actions.addProductSuccess(id, product));
+  } catch (error) {
+    console.log(error);
+    yield put(actions.addProductFailure(id));
+  }
+}
 
 /*
 return dispatch => {
@@ -109,7 +109,7 @@ return dispatch => {
 export default function* rootSaga() {
   yield all([
     takeEvery(LOAD_PRODUCT, loadProduct),
-    // takeEvery(ADD_PRODUCT, addProduct),
+    takeEvery(ADD_PRODUCT, addProduct),
     // takeEvery(RESEND_PRODUCT, resendProduct),
     // takeEvery(REMOVE_PRODUCT, removeProduct),
   ]);

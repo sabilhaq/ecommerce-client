@@ -2,10 +2,10 @@ import {
   LOAD_PRODUCT,
   LOAD_PRODUCT_SUCCESS,
   LOAD_PRODUCT_FAILURE,
-  // ADD_PRODUCT,
-  // ADD_PRODUCT_DRAWING,
-  // ADD_PRODUCT_SUCCESS,
-  // ADD_PRODUCT_FAILURE,
+  ADD_PRODUCT,
+  ADD_PRODUCT_DRAWING,
+  ADD_PRODUCT_SUCCESS,
+  ADD_PRODUCT_FAILURE,
   // RESEND_PRODUCT,
   // RESEND_PRODUCT_SUCCESS,
   // RESEND_PRODUCT_FAILURE,
@@ -27,27 +27,27 @@ export const loadProduct = () => ({
   type: LOAD_PRODUCT,
 });
 
-// export const drawAddProduct = (id, title) => ({
-//   type: ADD_PRODUCT_DRAWING,
-//   id,
-//   title,
-// });
+export const drawAddProduct = (id, title) => ({
+  type: ADD_PRODUCT_DRAWING,
+  id,
+  title,
+});
 
-// export const addProductSuccess = (oldId, product) => ({
-//   type: ADD_PRODUCT_SUCCESS,
-//   oldId,
-//   product,
-// });
+export const addProductSuccess = (oldId, product) => ({
+  type: ADD_PRODUCT_SUCCESS,
+  oldId,
+  product,
+});
 
-// export const addProductFailure = (id) => ({
-//   type: ADD_PRODUCT_FAILURE,
-//   id,
-// });
+export const addProductFailure = (id) => ({
+  type: ADD_PRODUCT_FAILURE,
+  id,
+});
 
-// export const addProduct = (title) => ({
-//   type: ADD_PRODUCT,
-//   title,
-// });
+export const addProduct = (input) => ({
+  type: ADD_PRODUCT,
+  input,
+});
 
 // export const resendProductSuccess = (oldId, product) => ({
 //   type: RESEND_PRODUCT_SUCCESS,

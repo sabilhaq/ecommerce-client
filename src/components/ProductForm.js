@@ -1,16 +1,21 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
+import { addProduct } from '../actions';
 import './ProductForm.scss';
 
 export default function ProductForm() {
+  const dispatch = useDispatch();
+
   const [isEditing, setIsEditing] = useState(false);
   const [input, setInput] = useState({
     title: '',
     rate: 0,
     description: '',
     price: 0,
-    priceFormatted: 0,
     brand: '',
     detail: '',
+    quantity: 0,
   });
 
   const toCurrency = (number) => {
@@ -24,6 +29,14 @@ export default function ProductForm() {
 
   const toggleEditing = () => {
     setIsEditing(!isEditing);
+  };
+
+  let history = useHistory();
+
+  const handleSubmit = (e) => {
+    dispatch(addProduct(input));
+    history.push('/');
+    e.preventDefault();
   };
 
   return (
@@ -49,7 +62,9 @@ export default function ProductForm() {
             <div className="Label">Rate</div>
             <div className="Input">
               <input
-                onChange={(e) => setInput({ ...input, rate: e.target.value })}
+                onChange={(e) =>
+                  setInput({ ...input, rate: Number(e.target.value) })
+                }
                 name="rate"
                 value={input.rate}
                 type="number"
@@ -82,7 +97,7 @@ export default function ProductForm() {
                   value={input.price}
                   onBlur={toggleEditing}
                   onChange={(e) =>
-                    setInput({ ...input, price: e.target.value })
+                    setInput({ ...input, price: parseInt(e.target.value) })
                   }
                 />
               ) : (
@@ -109,6 +124,20 @@ export default function ProductForm() {
             </div>
           </div>
           <div className="Row">
+            <div className="Label">Stock</div>
+            <div className="Input">
+              <input
+                onChange={(e) =>
+                  setInput({ ...input, quantity: Number(e.target.value) })
+                }
+                name="quantity"
+                value={input.quantity}
+                type="number"
+                placeholder="Stock"
+              ></input>
+            </div>
+          </div>
+          <div className="Row">
             <div className="Label">Detail Product</div>
             <div className="Input">
               <textarea
@@ -124,7 +153,9 @@ export default function ProductForm() {
           <div className="Row">
             <div className="Label"></div>
             <div className="Input">
-              <button className="btn btn-add">Add</button>
+              <button onClick={handleSubmit} className="btn btn-add">
+                Add
+              </button>
               <button className="btn btn-cancel">Cancel</button>
             </div>
           </div>

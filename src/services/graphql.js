@@ -1,8 +1,8 @@
-import ApolloClient from "apollo-boost";
-import gql from "graphql-tag";
+import ApolloClient from 'apollo-boost';
+import gql from 'graphql-tag';
 
 const client = new ApolloClient({
-  uri: "http://localhost:3001/graphql",
+  uri: 'http://localhost:3001/graphql',
 });
 
 export const loadProducts = () => {
@@ -21,28 +21,80 @@ export const loadProducts = () => {
   `;
   return client
     .query({ query: GET_PRODUCTS })
-    .then((response) => {
-      return response.data.getProducts;
-    })
+    .then((response) => response.data.getProducts)
     .catch((err) => {
       throw err;
     });
 };
 
-// export const addProduct = (title) => {
-//   const ADD_PRODUCT = gql`
-//     mutation createProduct($title: String) {
-//       createProduct(input: { title: $title }) {
-//         _id
-//         title
-//         complete
-//       }
-//     }
-//   `;
-//   client
-//     .mutate({ mutation: ADD_PRODUCT, variables: { title } })
-//     .then((response) => response.data.createProduct)
-//     .catch((err) => {
-//       throw err;
-//     });
-// };
+export const addProduct = (payload) => {
+  const {
+    title,
+    rate,
+    description,
+    brand,
+    detail,
+    // votes,
+    quantity,
+    price,
+    // UserId,
+    photos,
+  } = payload;
+  const ADD_PRODUCT = gql`
+    mutation createProduct(
+      $title: String!
+      $rate: Int!
+      $description: String
+      $brand: String
+      $detail: String
+      $votes: Int!
+      $quantity: Int!
+      $price: Int!
+      $UserId: String!
+      $photos: [String]
+    ) {
+      createProduct(
+        input: {
+          title: $title
+          rate: $rate
+          description: $description
+          brand: $brand
+          detail: $detail
+          votes: $votes
+          quantity: $quantity
+          price: $price
+          UserId: $UserId
+          photos: $photos
+        }
+      ) {
+        id
+        title
+        rate
+        description
+        price
+        createdAt
+        updatedAt
+      }
+    }
+  `;
+  client
+    .mutate({
+      mutation: ADD_PRODUCT,
+      variables: {
+        title,
+        rate,
+        description,
+        brand,
+        detail,
+        votes: 0,
+        quantity,
+        price,
+        UserId: 'abc',
+        photos,
+      },
+    })
+    .then((response) => response.data.createProduct)
+    .catch((err) => {
+      throw err;
+    });
+};

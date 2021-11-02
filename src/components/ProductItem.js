@@ -37,7 +37,7 @@ export default function ProductItem(props) {
         </div>
         <div className="Title">{props.title}</div>
         <div className="Rate">{star}</div>
-        <div className="Description">{props.description}</div>
+        <div className="Description">{props.description ? props.description : "Tidak ada deskripsi"}</div>
         <div className="Price">Rp{props.price.toLocaleString("id-ID")}</div>
         {/* <div>{props.price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</div> */}
       </div>
