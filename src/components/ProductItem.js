@@ -1,48 +1,62 @@
-import "./ProductItem.scss";
+import { useHistory } from 'react-router';
+import './ProductItem.scss';
 
 export default function ProductItem(props) {
+  let history = useHistory();
+
   let star = [];
   for (let i = 0; i < 5; i++) {
     star.push(
       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="icon icon-tabler icon-tabler-star"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        strokeWidth="1"
-        stroke="currentColor"
-        fill={i < props.rate ? "black" : "none"}
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        xmlns='http://www.w3.org/2000/svg'
+        className='icon icon-tabler icon-tabler-star'
+        width='20'
+        height='20'
+        viewBox='0 0 24 24'
+        strokeWidth='1'
+        stroke='currentColor'
+        fill={i < props.rate ? 'black' : 'none'}
+        strokeLinecap='round'
+        strokeLinejoin='round'
       >
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-        <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path>
+        <path stroke='none' d='M0 0h24v24H0z' fill='none'></path>
+        <path d='M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z'></path>
       </svg>
     );
   }
 
   return (
-    <div className="ProductItem">
-      <div className="CardBody">
+    <div className='ProductItem'>
+      <div className='CardBody'>
         <div
-          className="Photo"
+          className='Photo'
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
-          500 x 400
+          <img
+            src='https://www.bhphotovideo.com/images/images1000x1000/samsung_i337_white_galaxy_s4_sgh_i337_16gb_1054606.jpg'
+            alt='Samsung'
+            height='100%'
+          />
         </div>
-        <div className="Title">{props.title}</div>
-        <div className="Rate">{star}</div>
-        <div className="Description">{props.description ? props.description : "Tidak ada deskripsi"}</div>
-        <div className="Price">Rp{props.price.toLocaleString("id-ID")}</div>
+        <div className='Title'>{props.title}</div>
+        <div className='Rate'>{star}</div>
+        <div className='Description'>
+          {props.description ? props.description : 'Tidak ada deskripsi'}
+        </div>
+        <div className='Price'>Rp{props.price.toLocaleString('id-ID')}</div>
         {/* <div>{props.price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</div> */}
       </div>
-      <div className="CardFooter">
-        <button className="btn-detail">DETAIL ITEM</button>
+      <div className='CardFooter'>
+        <button
+          onClick={() => history.push(`/detail/${props.id}`)}
+          className='btn-detail'
+        >
+          DETAIL ITEM
+        </button>
       </div>
     </div>
   );

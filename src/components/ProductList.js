@@ -1,8 +1,8 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { loadProduct } from "../actions";
-import ProductItem from "./ProductItem";
-import "./ProductList.scss";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { loadProducts } from '../actions';
+import ProductItem from './ProductItem';
+import './ProductList.scss';
 
 export default function ProductList() {
   const { products } = useSelector(
@@ -15,7 +15,7 @@ export default function ProductList() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadProduct());
+    dispatch(loadProducts());
   }, [dispatch]);
 
   // const resend = useCallback(
@@ -32,6 +32,10 @@ export default function ProductList() {
   //   [dispatch]
   // );
 
+  const handleLoadMore = () => {
+    // todo: loadMore
+  };
+
   const nodeList = products.map((item) => (
     <ProductItem
       key={item.id}
@@ -47,5 +51,21 @@ export default function ProductList() {
     />
   ));
 
-  return <div className="ProductList">{nodeList}</div>;
+  if (nodeList.length === 0) {
+    return (
+      <div className='ProductList NoData'>
+        <div className=''>Tidak ada data</div>
+      </div>
+    );
+  }
+
+  return (
+    <React.Fragment>
+      <div className='ProductList'>{nodeList}</div>
+
+      <div className='More'>
+        <button onClick={handleLoadMore}>Load more</button>
+      </div>
+    </React.Fragment>
+  );
 }

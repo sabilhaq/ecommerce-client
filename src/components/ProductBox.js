@@ -1,19 +1,20 @@
-import { BrowserRouter as Router, Link } from "react-router-dom";
-import ProductList from "./ProductList";
-import "./ProductBox.scss";
+import { useHistory, withRouter } from 'react-router';
+import ProductList from './ProductList';
+import './ProductBox.scss';
 
-export default function ProductBox() {
+function ProductBox() {
+  let history = useHistory();
+
   return (
-    <Router>
-      <div className="ProductBox">
-        <Link to="/add" className="btn-add">
-          Add Ads
-        </Link>
+    <div className='ProductBox'>
+      <nav></nav>
+      <button onClick={() => history.push('/add')} className='btn-add'>
+        Add Ads
+      </button>
 
-        <ProductList />
-
-        <div>{/*Todo: Pagination */}</div>
-      </div>
-    </Router>
+      <ProductList />
+    </div>
   );
 }
+
+export default withRouter(ProductBox);

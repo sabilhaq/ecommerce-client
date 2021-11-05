@@ -4,11 +4,27 @@
   .btn-add {
     background-color: #0059b1;
     color: #fff;
-    border-radius: 4px;
-    padding: 8px 12px;
 
     &:hover {
       background-color: #003e7d;
+    }
+  }
+
+  .More {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+
+    button {
+      border: 1px solid #003e7d;
+      background-color: #fff;
+      color: #003e7d;
+      transition: ease 0.2s;
+
+      &:hover {
+        background-color: #003e7d;
+        color: #fff;
+      }
     }
   }
 }

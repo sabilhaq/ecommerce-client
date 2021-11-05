@@ -1,4 +1,7 @@
 import {
+  LOAD_PRODUCTS,
+  LOAD_PRODUCTS_SUCCESS,
+  LOAD_PRODUCTS_FAILURE,
   LOAD_PRODUCT,
   LOAD_PRODUCT_SUCCESS,
   LOAD_PRODUCT_FAILURE,
@@ -12,19 +15,33 @@ import {
   // REMOVE_PRODUCT,
   // REMOVE_PRODUCT_SUCCESS,
   // REMOVE_PRODUCT_FAILURE,
-} from "../constant";
+} from '../constant';
 
-export const loadProductSuccess = (products) => ({
-  type: LOAD_PRODUCT_SUCCESS,
+export const loadProductsSuccess = (products) => ({
+  type: LOAD_PRODUCTS_SUCCESS,
   products,
+});
+
+export const loadProductsFailure = () => ({
+  type: LOAD_PRODUCTS_FAILURE,
+});
+
+export const loadProducts = () => ({
+  type: LOAD_PRODUCTS,
+});
+
+export const loadProductSuccess = (product) => ({
+  type: LOAD_PRODUCT_SUCCESS,
+  product,
 });
 
 export const loadProductFailure = () => ({
   type: LOAD_PRODUCT_FAILURE,
 });
 
-export const loadProduct = () => ({
+export const loadProduct = (id) => ({
   type: LOAD_PRODUCT,
+  id,
 });
 
 export const drawAddProduct = (id, title) => ({

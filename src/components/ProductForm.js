@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useHistory, withRouter } from 'react-router';
 import { addProduct } from '../actions';
 import './ProductForm.scss';
 
-export default function ProductForm() {
+function ProductForm() {
   const dispatch = useDispatch();
 
   const [isEditing, setIsEditing] = useState(false);
@@ -42,6 +42,7 @@ export default function ProductForm() {
   return (
     <div className="ProductForm">
       <div className="Header">Add Ads</div>
+
       <div className="Body">
         <form className="Form">
           <div className="Row">
@@ -58,6 +59,7 @@ export default function ProductForm() {
               ></input>
             </div>
           </div>
+
           <div className="Row">
             <div className="Label">Rate</div>
             <div className="Input">
@@ -72,6 +74,7 @@ export default function ProductForm() {
               ></input>
             </div>
           </div>
+
           <div className="Row">
             <div className="Label">Description</div>
             <div className="Input">
@@ -87,6 +90,7 @@ export default function ProductForm() {
               ></textarea>
             </div>
           </div>
+
           <div className="Row">
             <div className="Label">Price</div>
             <div className="Input">
@@ -111,6 +115,7 @@ export default function ProductForm() {
               )}
             </div>
           </div>
+
           <div className="Row">
             <div className="Label">Brand</div>
             <div className="Input">
@@ -123,6 +128,7 @@ export default function ProductForm() {
               ></input>
             </div>
           </div>
+
           <div className="Row">
             <div className="Label">Stock</div>
             <div className="Input">
@@ -137,6 +143,7 @@ export default function ProductForm() {
               ></input>
             </div>
           </div>
+
           <div className="Row">
             <div className="Label">Detail Product</div>
             <div className="Input">
@@ -150,13 +157,19 @@ export default function ProductForm() {
               ></textarea>
             </div>
           </div>
+          
           <div className="Row">
             <div className="Label"></div>
             <div className="Input">
               <button onClick={handleSubmit} className="btn btn-add">
                 Add
               </button>
-              <button className="btn btn-cancel">Cancel</button>
+              <button
+                onClick={() => history.push('/')}
+                className="btn btn-cancel"
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </form>
@@ -164,3 +177,5 @@ export default function ProductForm() {
     </div>
   );
 }
+
+export default withRouter(ProductForm);

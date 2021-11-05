@@ -7,6 +7,7 @@ import rootReducer from './reducers';
 import rootSaga from './sagas/products';
 import ProductBox from './components/ProductBox';
 import ProductForm from './components/ProductForm';
+import ProductDetail from './components/ProductDetail';
 import './App.scss';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -16,14 +17,11 @@ sagaMiddleware.run(rootSaga);
 function App() {
   return (
     <Provider store={store}>
-      <Router>
+      <Router forceRefresh={true}>
         <Switch>
-          <Route path="/add">
-            <ProductForm />
-          </Route>
-          <Route exact path="/">
-            <ProductBox />
-          </Route>
+          <Route path="/add" component={ProductForm} />
+          <Route path="/detail/:id" component={ProductDetail} />
+          <Route exact path="/" component={ProductBox} />
         </Switch>
       </Router>
     </Provider>

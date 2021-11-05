@@ -27,6 +27,32 @@ export const loadProducts = () => {
     });
 };
 
+export const loadProduct = (id) => {
+  const GET_PRODUCT = gql`
+    query getProduct($id: Int!) {
+      getProduct(id: $id) {
+        id
+        title
+        brand
+        votes
+        price
+        detail
+        createdAt
+        updatedAt
+      }
+    }
+  `;
+  return client
+    .query({
+      query: GET_PRODUCT,
+      variables: { id },
+    })
+    .then((response) => response.data.getProduct)
+    .catch((err) => {
+      throw err;
+    });
+};
+
 export const addProduct = (payload) => {
   const {
     title,
@@ -34,7 +60,6 @@ export const addProduct = (payload) => {
     description,
     brand,
     detail,
-    // votes,
     quantity,
     price,
     // UserId,

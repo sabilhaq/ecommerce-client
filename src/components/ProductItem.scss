@@ -9,7 +9,6 @@
   .CardBody {
     .Photo {
       height: 200px;
-      background-color: gray;
       margin-bottom: 10px;
     }
 
@@ -41,8 +40,6 @@
     .btn-detail {
       background-color: #02bf4d;
       color: #fff;
-      border-radius: 4px;
-      padding: 8px 12px;
 
       &:hover {
         background-color: #00a743;

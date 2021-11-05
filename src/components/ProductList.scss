@@ -2,4 +2,10 @@
   display: flex;
   flex-wrap: wrap;
   margin-top: 20px;
+
+  &.NoData {
+    align-items: center;
+    justify-content: center;
+    padding: 4rem;
+  }
 }

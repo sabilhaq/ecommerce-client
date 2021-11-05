@@ -1,0 +1,158 @@
+.ProductDetail {
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+  height: calc(100vh - 65px);
+
+  &.Loading {
+    justify-content: center;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .PhotoContainer {
+    width: 50%;
+    max-height: 500px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .Detail {
+    width: 50%;
+
+    .Title {
+      padding: 0 1rem;
+    }
+
+    .Brand {
+      color: #0000c7;
+      margin-bottom: 2rem;
+      padding: 0 1rem;
+
+      .BrandWord {
+        color: #0000c7;
+        font-weight: bold;
+        margin-right: 4px;
+      }
+
+      .TheBrand {
+        font-weight: 600;
+      }
+
+      .Separator {
+        margin: 0 4px;
+      }
+    }
+
+    .Price {
+      padding: 0 1rem;
+      margin-bottom: 8px;
+
+      .PriceWord {
+        font-size: 12px;
+      }
+
+      .ThePrice {
+        font-size: 24px;
+        font-weight: bold;
+      }
+    }
+
+    .Variant {
+      background-color: #f7f7f7;
+      padding: 1rem 1rem;
+
+      .ColorWord,
+      .CapacityWord,
+      .QuantityWord {
+        font-size: 12px;
+      }
+
+      .ColorContainer {
+        margin-bottom: 12px;
+
+        .Colors {
+          display: flex;
+
+          .Color {
+            margin-right: 8px;
+          }
+        }
+      }
+
+      .CapacityContainer {
+        margin-bottom: 12px;
+
+        .Capacities {
+          display: flex;
+
+          .Capacity {
+            margin-right: 8px;
+            border: 1px solid #000;
+            padding: 6px 4px;
+          }
+        }
+      }
+      .QuantityContainer {
+        margin-bottom: 2rem;
+
+        input {
+          text-align: center;
+          padding: 4px;
+        }
+
+        button {
+          border: 1px solid #000;
+          padding: 5px 12px;
+          border-radius: 0;
+        }
+
+        button.btn-decrease {
+          border-right: 0;
+          border-top-left-radius: 4px;
+          border-bottom-left-radius: 4px;
+        }
+
+        button.btn-add {
+          border-left: 0;
+          border-top-right-radius: 4px;
+          border-bottom-right-radius: 4px;
+        }
+      }
+
+      .Buy {
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        background-color: #01ae69;
+        color: #fff;
+        font-size: 1rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+
+        svg {
+          transform: scaleX(-1);
+        }
+
+        span {
+          margin-left: 1rem;
+        }
+      }
+
+      .Like {
+        display: flex;
+        align-items: center;
+        color: blue;
+        cursor: pointer;
+
+        span {
+          margin-left: 4px;
+        }
+      }
+    }
+  }
+}
