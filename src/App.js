@@ -8,6 +8,7 @@ import rootSaga from './sagas/products';
 import ProductBox from './components/ProductBox';
 import ProductForm from './components/ProductForm';
 import ProductDetail from './components/ProductDetail';
+import Login from './components/Login';
 import './App.scss';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -21,6 +22,7 @@ function App() {
         <Switch>
           <Route path="/add" component={ProductForm} />
           <Route path="/detail/:id" component={ProductDetail} />
+          <Route path="/login" component={Login} />
           <Route exact path="/" component={ProductBox} />
         </Switch>
       </Router>

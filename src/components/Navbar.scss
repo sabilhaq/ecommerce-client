@@ -1,0 +1,101 @@
+.NavbarContainer {
+  background-color: #212529;
+  padding: 0.5rem 0;
+  display: flex;
+  position: fixed;
+  width: 100%;
+
+  .container-fluid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    width: 100%;
+
+    .navbar-brand {
+      color: #fff;
+      padding-top: 0.3125rem;
+      padding-bottom: 0.3125rem;
+      margin-right: 1rem;
+      font-size: 1.25rem;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .Navbars {
+      display: flex;
+      flex-grow: 1;
+      flex-basis: auto;
+
+      .navbar-nav {
+        display: flex;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        flex-grow: 1;
+
+        li {
+          float: left;
+          list-style: none;
+
+          a {
+            color: #ffffffa9;
+            padding: 0.5rem 1rem;
+            padding-right: 0.5rem;
+            padding-left: 0.5rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+              border-color 0.15s ease-in-out;
+
+            &:hover {
+              color: #fff;
+            }
+
+            &.active {
+              color: #fff;
+            }
+          }
+        }
+      }
+
+      .btn {
+        background-color: transparent;
+        border: 1px solid transparent;
+        font-size: 1rem;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+          border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      }
+      .btn-outline-success {
+        color: #198754;
+        border-color: #198754;
+        &:hover {
+          background-color: #198754;
+          color: #fff;
+        }
+        &.btn-search {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+      }
+      form {
+        display: flex;
+        &.Search {
+          width: 480px;
+        }
+        input {
+          padding: 0.55rem 0.75rem;
+          width: 75%;
+          flex-grow: 1;
+        }
+
+        .btn-outline-danger {
+          color: #dc3545;
+          border-color: #dc3545;
+          &:hover {
+            background-color: #dc3545;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}
