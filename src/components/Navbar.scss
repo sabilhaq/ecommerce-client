@@ -43,8 +43,8 @@
             padding: 0.5rem 1rem;
             padding-right: 0.5rem;
             padding-left: 0.5rem;
-            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-              border-color 0.15s ease-in-out;
+            transition: color 0.15s ease-in-out,
+              background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 
             &:hover {
               color: #fff;
@@ -64,23 +64,44 @@
         transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
           border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
       }
+
       .btn-outline-success {
         color: #198754;
         border-color: #198754;
+
         &:hover {
           background-color: #198754;
           color: #fff;
         }
+
         &.btn-search {
           border-top-left-radius: 0;
           border-bottom-left-radius: 0;
         }
       }
+
+      .btn-outline-danger {
+        color: #b41500;
+        border-color: #b41500;
+
+        &:hover {
+          background-color: #b41500;
+          color: #fff;
+        }
+      }
+
       form {
         display: flex;
+
         &.Search {
           width: 480px;
+
+          input {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+          }
         }
+
         input {
           padding: 0.55rem 0.75rem;
           width: 75%;
@@ -90,6 +111,7 @@
         .btn-outline-danger {
           color: #dc3545;
           border-color: #dc3545;
+
           &:hover {
             background-color: #dc3545;
             color: #fff;

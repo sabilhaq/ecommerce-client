@@ -1,6 +1,6 @@
-import request from '../services/api';
 import React, { useState } from 'react';
 import { useHistory, withRouter } from 'react-router-dom';
+import request from '../services/api';
 import './Login.scss';
 
 function Login() {
@@ -26,11 +26,10 @@ function Login() {
   };
 
   const handleSubmit = (event) => {
-    console.log(input);
-    // todo: API request with GraphQL
     request
-      .post('users', {
+      .post('auth', {
         email: input.email,
+        password: input.password,
       })
       .then(function (response) {
         localStorage.setItem('email', response.data.email);
@@ -44,42 +43,50 @@ function Login() {
       .catch(function (error) {
         console.log(error);
       });
+
     event.preventDefault();
   };
 
   return (
-    <div className="Login">
-      <div className="LoginContainer">
-        <nav className="nav nav-tabs nav-fill">
-          <li className="nav-link active">Login</li>
+    <div className='Login'>
+      <div className='LoginContainer'>
+        <nav className='nav nav-tabs nav-fill'>
+          <li className='nav-link active'>Login</li>
         </nav>
 
-        <div className="tab-content" id="myTabContent">
+        <div className='tab-content' id='myTabContent'>
           <div>
-            <form onSubmit={handleSubmit} id="login-form" action="" method="post">
-              <div className="form-floating mb-3">
-                <label htmlFor="floatingInput">Email</label>
+            <form
+              onSubmit={handleSubmit}
+              id='login-form'
+              action=''
+              method='post'
+            >
+              <div className='form-floating mb-3'>
+                <label htmlFor='floatingInput'>Email</label>
                 <input
-                  type="text"
-                  className="form-control mt-1"
-                  id="floatingInput"
+                  type='text'
+                  className='form-control mt-1'
                   onChange={handleInputChat}
-                  placeholder="Email"
+                  placeholder='Email'
                 />
               </div>
 
-              <div className="form-floating mb-3">
-                <label htmlFor="floatingInput">Password</label>
+              <div className='form-floating mb-3'>
+                <label htmlFor='floatingInput'>Password</label>
                 <input
-                  type="password"
-                  className="form-control mt-1"
-                  id="floatingInput"
+                  type='password'
+                  className='form-control mt-1'
                   onChange={handleInputPassword}
-                  placeholder="Password"
+                  placeholder='Password'
                 />
               </div>
 
-              <button onClick={handleSubmit} type="submit" className="btn btn-primary">
+              <button
+                onClick={handleSubmit}
+                type='submit'
+                className='btn btn-primary'
+              >
                 LOG IN
               </button>
             </form>
