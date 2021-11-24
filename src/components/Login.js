@@ -32,6 +32,7 @@ function Login() {
         password: input.password,
       })
       .then(function (response) {
+        localStorage.setItem('userId', response.data.userId);
         localStorage.setItem('email', response.data.email);
         localStorage.setItem('token', response.data.token);
         setInput((input) => ({
