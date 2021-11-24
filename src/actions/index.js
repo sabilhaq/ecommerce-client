@@ -6,15 +6,18 @@ import {
   LOAD_PRODUCT_SUCCESS,
   LOAD_PRODUCT_FAILURE,
   ADD_PRODUCT,
-  ADD_PRODUCT_DRAWING,
   ADD_PRODUCT_SUCCESS,
   ADD_PRODUCT_FAILURE,
-  // RESEND_PRODUCT,
-  // RESEND_PRODUCT_SUCCESS,
-  // RESEND_PRODUCT_FAILURE,
   // REMOVE_PRODUCT,
   // REMOVE_PRODUCT_SUCCESS,
   // REMOVE_PRODUCT_FAILURE,
+  LOAD_CHATS_SUCCESS,
+  LOAD_CHATS_FAILURE,
+  LOAD_CHATS,
+  ADD_CHAT_DRAWING,
+  ADD_CHAT_SUCCESS,
+  ADD_CHAT_FAILURE,
+  ADD_CHAT,
 } from '../constant';
 
 export const loadProductsSuccess = (products) => ({
@@ -44,15 +47,8 @@ export const loadProduct = (id) => ({
   id,
 });
 
-export const drawAddProduct = (id, title) => ({
-  type: ADD_PRODUCT_DRAWING,
-  id,
-  title,
-});
-
-export const addProductSuccess = (oldId, product) => ({
+export const addProductSuccess = (product) => ({
   type: ADD_PRODUCT_SUCCESS,
-  oldId,
   product,
 });
 
@@ -61,26 +57,11 @@ export const addProductFailure = (id) => ({
   id,
 });
 
-export const addProduct = (input) => ({
+export const addProduct = (id,input) => ({
   type: ADD_PRODUCT,
+  id,
   input,
 });
-
-// export const resendProductSuccess = (oldId, product) => ({
-//   type: RESEND_PRODUCT_SUCCESS,
-//   oldId,
-//   product,
-// });
-
-// export const resendProductFailure = () => ({
-//   type: RESEND_PRODUCT_FAILURE,
-// });
-
-// export const resendProduct = (oldId, title) => ({
-//   type: RESEND_PRODUCT,
-//   oldId,
-//   title,
-// });
 
 // export const removeProductSuccess = (id) => ({
 //   type: REMOVE_PRODUCT_SUCCESS,
@@ -95,3 +76,39 @@ export const addProduct = (input) => ({
 //   type: REMOVE_PRODUCT,
 //   id,
 // });
+
+export const loadChatsSuccess = (chats) => ({
+  type: LOAD_CHATS_SUCCESS,
+  chats,
+});
+
+export const loadChatsFailure = () => ({
+  type: LOAD_CHATS_FAILURE,
+});
+
+export const loadChats = (param) => ({
+  type: LOAD_CHATS,
+  param,
+});
+
+export const drawAddChat = (id, content) => ({
+  type: ADD_CHAT_DRAWING,
+  id,
+  content,
+});
+
+export const addChatSuccess = (oldId, chat) => ({
+  type: ADD_CHAT_SUCCESS,
+  oldId,
+  chat,
+});
+
+export const addChatFailure = (id) => ({
+  type: ADD_CHAT_FAILURE,
+  id,
+});
+
+export const addChat = (input) => ({
+  type: ADD_CHAT,
+  input,
+});

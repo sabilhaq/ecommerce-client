@@ -37,7 +37,7 @@ export default function ProductItem(props) {
           }}
         >
           <img
-            src='https://www.bhphotovideo.com/images/images1000x1000/samsung_i337_white_galaxy_s4_sgh_i337_16gb_1054606.jpg'
+            src={props.photos && `${process.env.REACT_APP_BASE_URL}${props.photos[0]}`}
             alt='Samsung'
             height='100%'
           />

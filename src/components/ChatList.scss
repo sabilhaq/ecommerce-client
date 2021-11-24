@@ -1,0 +1,257 @@
+.Chats {
+  height: 100vh;
+  background-color: #F5F7FB;
+  padding: 1rem;
+  padding-top: 5rem;
+
+  .Title {
+    height: 100px;
+    background-color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+  }
+
+  .ChatsContactsContainer {
+    display: flex;
+
+    .ContactsContainer {
+      flex-basis: 300px;
+      min-width: 300px;
+      background-color: #FFF;
+      border-radius: 10px;
+      overflow: auto;
+
+      &:hover {
+        &::-webkit-scrollbar-thumb {
+          background: #b1b1b1;
+        }
+      }
+
+      &::-webkit-scrollbar {
+        position: absolute;
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 10px;
+        display: none;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: transparent;
+
+        &:hover {
+          background: rgb(143, 143, 143);
+        }
+      }
+
+      .Title {
+        height: 40px;
+      }
+
+      .Contacts {
+        .Contact {
+          display: flex;
+          flex-direction: column;
+          padding: 1rem;
+          border-bottom: 1px solid #e6e6e6;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #f3f3f3;
+          }
+
+          &.Active {
+            background-color: #2D95F6;
+            color: #fff;
+          }
+        }
+
+        .ButtonContainer {
+          position: absolute;
+          bottom: 85px;
+          left: 117px;
+        }
+      }
+    }
+
+    .ChatsContainer {
+      flex-grow: 1;
+      margin-left: 1rem;
+      height: calc(100vh - 150px);
+      overflow: auto;
+
+      .Title {
+        height: 75px;
+        margin-top: 0;
+      }
+
+      .Chats {
+        background-color: #FFF;
+        height: calc(100% - 161px);
+        overflow: auto;
+        position: relative;
+        padding-top: 1rem;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+
+        &:hover {
+          &::-webkit-scrollbar-thumb {
+            background: #b1b1b1;
+          }
+        }
+
+        &::-webkit-scrollbar {
+          position: absolute;
+          width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+          box-shadow: inset 0 0 5px grey;
+          border-radius: 10px;
+          display: none;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          border-radius: 10px;
+          background-color: transparent;
+
+          &:hover {
+            background: rgb(143, 143, 143);
+          }
+        }
+
+        .Chat {
+          width: 100%;
+          display: flex;
+          margin-bottom: 1rem;
+
+          &.Receiver {
+            max-width: 1000px;
+            min-width: 400px;
+            padding-left: 1rem;
+
+            .Bubble {
+              position: relative;
+              width: auto;
+              max-width: 60%;
+
+              &::before {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: -12px;
+                border: 10px solid transparent;
+                border-right: 10px solid #F0F0F0;
+                border-bottom: 10px solid #F0F0F0;
+              }
+            }
+          }
+
+          &.Sender {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            svg {
+              cursor: pointer;
+            }
+
+            .Bubble {
+              position: relative;
+              margin-right: 1rem;
+              margin-left: 1rem;
+              background-color: #2D95F6;
+              color: white;
+              width: auto;
+              max-width: 60%;
+
+
+              &::before {
+                content: "";
+                position: absolute;
+                right: -10px;
+                bottom: 0;
+                border: 10px solid transparent;
+                border-left: 10px solid #2D95F6;
+                border-bottom: 10px solid #2D95F6;
+              }
+            }
+          }
+
+          .Bubble {
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            width: 100%;
+            padding: 1rem;
+            position: relative;
+
+            h3 {
+              margin-bottom: 1rem;
+            }
+
+            p {
+              margin: 0
+            }
+          }
+        }
+
+        .NewChat {
+          border-bottom-left-radius: 10px;
+          border-bottom-right-radius: 10px;
+          position: fixed;
+          bottom: 68px;
+          width: calc(100% - 348px);
+          background-color: white;
+          right: 1rem;
+
+          .NewChatForm {
+            display: flex;
+            align-items: flex-end;
+            padding: 1rem;
+
+            #inputChat {
+              font-family: inherit;
+
+              overflow: auto;
+              resize: none;
+              min-height: 40px;
+              max-height: 300px;
+              border-radius: 20px;
+              padding-left: 1.5rem;
+              margin-right: 1rem;
+              box-sizing: border-box;
+              width: 100%;
+
+              &::-webkit-scrollbar {
+                display: none;
+              }
+            }
+
+            .Send {
+              display: flex;
+              width: 40px;
+              height: 40px;
+              margin: 0;
+              padding: 0;
+              align-items: center;
+              justify-content: center;
+              border-radius: 50%;
+              background-color: #2D95F6;
+              border: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+

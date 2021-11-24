@@ -14,6 +14,7 @@ export const loadProducts = () => {
         rate
         description
         price
+        photos
         createdAt
         updatedAt
       }
@@ -29,7 +30,7 @@ export const loadProducts = () => {
 
 export const loadProduct = (id) => {
   const GET_PRODUCT = gql`
-    query getProduct($id: Int!) {
+    query getProduct($id: String!) {
       getProduct(id: $id) {
         id
         title
@@ -37,6 +38,7 @@ export const loadProduct = (id) => {
         votes
         price
         detail
+        UserId
         createdAt
         updatedAt
       }
@@ -53,7 +55,7 @@ export const loadProduct = (id) => {
     });
 };
 
-export const addProduct = (payload) => {
+export const addProduct = (id, input) => {
   const {
     title,
     rate,
@@ -62,11 +64,12 @@ export const addProduct = (payload) => {
     detail,
     quantity,
     price,
-    // UserId,
+    userId,
     photos,
-  } = payload;
+  } = input;
   const ADD_PRODUCT = gql`
     mutation createProduct(
+      $id: String!
       $title: String!
       $rate: Int!
       $description: String
@@ -80,6 +83,7 @@ export const addProduct = (payload) => {
     ) {
       createProduct(
         input: {
+          id: $id
           title: $title
           rate: $rate
           description: $description
@@ -106,6 +110,7 @@ export const addProduct = (payload) => {
     .mutate({
       mutation: ADD_PRODUCT,
       variables: {
+        id,
         title,
         rate,
         description,
@@ -114,11 +119,81 @@ export const addProduct = (payload) => {
         votes: 0,
         quantity,
         price,
-        UserId: 'abc',
+        UserId: userId,
         photos,
       },
     })
     .then((response) => response.data.createProduct)
+    .catch((err) => {
+      throw err;
+    });
+};
+
+// Chats
+
+export const loadChats = (param) => {
+  const { sender, receiver } = param;
+  const GET_CHATS = gql`
+    query getChats($sender: String!, $receiver: String!) {
+      getChats(sender: $sender, receiver: $receiver) {
+        _id
+        content
+        status
+        createdAt
+        updatedAt
+      }
+    }
+  `;
+  return client
+    .query({
+      query: GET_CHATS,
+      variables: {
+        sender,
+        receiver,
+      },
+    })
+    .then((response) => response.data.getChats)
+    .catch((err) => {
+      throw err;
+    });
+};
+
+export const addChat = (input) => {
+  const {
+    content,
+    sender,
+    receiver,
+  } = input;
+  const ADD_CHAT = gql`
+    mutation createChat(
+      $content: String!
+      $sender: String!
+      $receiver: String!
+    ) {
+      createChat(
+        input: { content: $content, sender: $sender, receiver: $receiver }
+      ) {
+        _id
+        status
+        content
+        sent
+        createdAt
+        updatedAt
+      }
+    }
+  `;
+  client
+    .mutate({
+      mutation: ADD_CHAT,
+      variables: {
+        content,
+        sender,
+        receiver,
+      },
+    })
+    .then((response) => {
+      return response.data.createChat;
+    })
     .catch((err) => {
       throw err;
     });

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory, withRouter } from 'react-router';
+import { v4 as uuidv4 } from 'uuid';
 import { addProduct } from '../actions';
+import request from '../services/api';
 import Navbar from './Navbar';
 import './ProductForm.scss';
 
@@ -17,6 +19,8 @@ function ProductForm() {
     brand: '',
     detail: '',
     quantity: 0,
+    photo: null,
+    userId: localStorage.getItem('userId'),
   });
 
   const toCurrency = (number) => {
@@ -35,78 +39,89 @@ function ProductForm() {
   let history = useHistory();
 
   const handleSubmit = (e) => {
-    dispatch(addProduct(input));
-    history.push('/');
     e.preventDefault();
+    const id = uuidv4();
+    dispatch(addProduct(id, input));
+
+    const data = new FormData();
+    data.append('file', input.photo);
+
+    request
+      .put(`products/${id}`, data)
+      .then((response) => {
+        history.push('/');
+      });
   };
 
   const handleCancel = (e) => {
     history.push('/');
     e.preventDefault();
-  }
+  };
 
   return (
     <React.Fragment>
       <Navbar />
 
-      <div className="ProductForm">
-        <div className="Header">Add Ads</div>
+      <div className='ProductForm'>
+        <div className='Header'>Add Ads</div>
 
-        <div className="Body">
-          <form className="Form">
-            <div className="Row">
-              <div className="Label">
-                <label htmlFor="title">Title</label>
+        <div className='Body'>
+          <form className='Form'>
+            <div className='Row'>
+              <div className='Label'>
+                <label htmlFor='title'>Title</label>
               </div>
-              <div className="Input">
+              <div className='Input'>
                 <input
-                  onChange={(e) => setInput({ ...input, title: e.target.value })}
-                  name="title"
+                  onChange={(e) =>
+                    setInput({ ...input, title: e.target.value })
+                  }
+                  name='title'
                   value={input.title}
-                  type="text"
-                  placeholder="Title"
+                  type='text'
+                  placeholder='Title'
                 ></input>
               </div>
             </div>
 
-            <div className="Row">
-              <div className="Label">Rate</div>
-              <div className="Input">
+            <div className='Row'>
+              <div className='Label'>Rate</div>
+              <div className='Input'>
                 <input
                   onChange={(e) =>
                     setInput({ ...input, rate: Number(e.target.value) })
                   }
-                  name="rate"
+                  name='rate'
                   value={input.rate}
-                  type="number"
-                  placeholder="Rate"
+                  type='number'
+                  placeholder='Rate'
                 ></input>
               </div>
             </div>
 
-            <div className="Row">
-              <div className="Label">Description</div>
-              <div className="Input">
+            <div className='Row'>
+              <div className='Label'>Description</div>
+              <div className='Input'>
                 <textarea
-                  name="description"
+                  name='description'
                   onChange={(e) =>
                     setInput({ ...input, description: e.target.value })
                   }
                   value={input.description}
-                  cols="30"
-                  rows="3"
-                  placeholder="Description"
+                  cols='30'
+                  rows='3'
+                  placeholder='Description'
                 ></textarea>
               </div>
             </div>
 
-            <div className="Row">
-              <div className="Label">Price</div>
-              <div className="Input">
+            <div className='Row'>
+              <div className='Label'>Price</div>
+              <div className='Input'>
                 {isEditing ? (
                   <input
-                    type="number"
-                    name="price"
+                    type='number'
+                    name='price'
                     value={input.price}
                     onBlur={toggleEditing}
                     onChange={(e) =>
@@ -115,8 +130,8 @@ function ProductForm() {
                   />
                 ) : (
                   <input
-                    type="text"
-                    name="price"
+                    type='text'
+                    name='price'
                     value={toCurrency(input.price)}
                     onFocus={toggleEditing}
                     readOnly
@@ -125,57 +140,75 @@ function ProductForm() {
               </div>
             </div>
 
-            <div className="Row">
-              <div className="Label">Brand</div>
-              <div className="Input">
+            <div className='Row'>
+              <div className='Label'>Brand</div>
+              <div className='Input'>
                 <input
-                  onChange={(e) => setInput({ ...input, brand: e.target.value })}
-                  name="brand"
+                  onChange={(e) =>
+                    setInput({ ...input, brand: e.target.value })
+                  }
+                  name='brand'
                   value={input.brand}
-                  type="text"
-                  placeholder="Brand"
+                  type='text'
+                  placeholder='Brand'
                 ></input>
               </div>
             </div>
 
-            <div className="Row">
-              <div className="Label">Stock</div>
-              <div className="Input">
+            <div className='Row'>
+              <div className='Label'>Stock</div>
+              <div className='Input'>
                 <input
                   onChange={(e) =>
                     setInput({ ...input, quantity: Number(e.target.value) })
                   }
-                  name="quantity"
+                  name='quantity'
                   value={input.quantity}
-                  type="number"
-                  placeholder="Stock"
+                  type='number'
+                  placeholder='Stock'
                 ></input>
               </div>
             </div>
 
-            <div className="Row">
-              <div className="Label">Detail Product</div>
-              <div className="Input">
+            <div className='Row'>
+              <div className='Label'>Detail Product</div>
+              <div className='Input'>
                 <textarea
-                  onChange={(e) => setInput({ ...input, detail: e.target.value })}
-                  name="detail"
+                  onChange={(e) =>
+                    setInput({ ...input, detail: e.target.value })
+                  }
+                  name='detail'
                   value={input.detail}
-                  cols="30"
-                  rows="15"
-                  placeholder="Detail Product"
+                  cols='30'
+                  rows='15'
+                  placeholder='Detail Product'
                 ></textarea>
               </div>
             </div>
 
-            <div className="Row">
-              <div className="Label"></div>
-              <div className="Input">
-                <button onClick={handleSubmit} className="btn btn-add">
+            <div className='Row'>
+              <div className='Label'>Photo</div>
+              <div className='Input'>
+                <input
+                  onChange={(e) =>
+                    setInput({ ...input, photo: e.target.files[0] })
+                  }
+                  name='photo'
+                  type='file'
+                  placeholder='Photo'
+                ></input>
+              </div>
+            </div>
+
+            <div className='Row'>
+              <div className='Label'></div>
+              <div className='Input'>
+                <button onClick={handleSubmit} className='btn btn-add'>
                   Add
                 </button>
                 <button
                   onClick={(e) => handleCancel(e)}
-                  className="btn btn-cancel"
+                  className='btn btn-cancel'
                 >
                   Cancel
                 </button>

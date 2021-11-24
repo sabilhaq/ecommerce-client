@@ -1,30 +1,8 @@
-import { all, takeEvery, put, call } from 'redux-saga/effects';
-import { v4 as uuidv4 } from 'uuid';
+import { put, call } from 'redux-saga/effects';
 import * as actions from '../actions';
-import {
-  LOAD_PRODUCTS,
-  LOAD_PRODUCT,
-  ADD_PRODUCT,
-  // REMOVE_PRODUCT,
-  // RESEND_PRODUCT,
-} from '../constant';
-// import * as API from "../services/products";
 import * as GraphQL from '../services/graphql';
 
-/*
-return dispatch => {
-    return request.get('products')
-      .then(function (response) {
-        dispatch(loadProductsSuccess(response.data.products))
-      })
-      .catch(function (error) {
-        console.error(error);
-        dispatch(loadProductsFailure())
-      });
-  }
-*/
-
-function* loadProducts() {
+export function* loadProducts() {
   try {
     const products = yield call(GraphQL.loadProducts);
     yield put(actions.loadProductsSuccess(products));
@@ -34,9 +12,9 @@ function* loadProducts() {
   }
 }
 
-function* loadProduct({id}) {
+export function* loadProduct({ id }) {
   try {
-    const product = yield call(GraphQL.loadProduct,id);
+    const product = yield call(GraphQL.loadProduct, id);
     yield put(actions.loadProductSuccess(product));
   } catch (error) {
     console.log(error);
@@ -44,55 +22,15 @@ function* loadProduct({id}) {
   }
 }
 
-/*
-const id = uuidv4()
-  return dispatch => {
-    dispatch(drawAddProduct(id, title))
-    return request.post('products', { title })
-      .then(function (response) {
-        dispatch(addProductSuccess(id, response.data.product))
-      })
-      .catch(function (error) {
-        console.error(error);
-        dispatch(addProductFailure(id))
-      });
-  }
-*/
-
-function* addProduct({input}) {
-  const id = uuidv4();
+export function* addProduct({ id, input }) {
   try {
-    yield put(actions.drawAddProduct(id, input));
-
-    const product = yield call(GraphQL.addProduct, input);
-    yield put(actions.addProductSuccess(id, product));
+    const product = yield call(GraphQL.addProduct, id, input);
+    yield put(actions.addProductSuccess(product));
   } catch (error) {
     console.log(error);
     yield put(actions.addProductFailure(id));
   }
 }
-
-/*
-return dispatch => {
-    return request.post('products', { title })
-      .then(response => {
-        dispatch(resendProductSuccess(oldId, response.data.product))
-      }).catch(err => {
-        dispatch(resendProductFailure())
-      })
-  }
-*/
-
-// function* resendProduct(payload) {
-//   const { oldId, title } = payload;
-//   try {
-//     const product = yield call(API.createProduct, title);
-//     yield put(actions.resendProductSuccess(oldId, product));
-//   } catch (error) {
-//     console.log(error);
-//     yield put(actions.resendProductFailure());
-//   }
-// }
 
 /*
 return dispatch => {
@@ -115,13 +53,3 @@ return dispatch => {
 //     yield put(actions.removeProductFailure());
 //   }
 // }
-
-export default function* rootSaga() {
-  yield all([
-    takeEvery(LOAD_PRODUCTS, loadProducts),
-    takeEvery(LOAD_PRODUCT, loadProduct),
-    takeEvery(ADD_PRODUCT, addProduct),
-    // takeEvery(RESEND_PRODUCT, resendProduct),
-    // takeEvery(REMOVE_PRODUCT, removeProduct),
-  ]);
-}

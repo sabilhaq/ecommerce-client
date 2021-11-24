@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import marked from 'marked';
 import { loadProduct } from '../actions';
 import Navbar from './Navbar';
@@ -8,6 +8,7 @@ import './ProductDetail.scss';
 
 export default function ProductDetail() {
   let { id } = useParams();
+  let history = useHistory();
 
   const { product } = useSelector(
     (state) => ({
@@ -19,7 +20,7 @@ export default function ProductDetail() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadProduct(Number(id)));
+    dispatch(loadProduct(id));
   }, [dispatch, id]);
 
   const colorStyle = {
@@ -50,15 +51,19 @@ export default function ProductDetail() {
   };
 
   const handleBuy = () => {
-    console.log(
-      `Saya berminat dengan, 
-      Nama barang: ${product.title}
-      Brand: ${product.brand}
-      Kapasitas: ${input.capacity}
-      Warna: ${input.color}
-      Harga: Rp${product.price.toLocaleString('id-ID')}
-      Jumlah: ${input.quantity}`
-    );
+    const order = `Saya berminat dengan,  
+    Nama barang: ${product.title}  
+    Brand: ${product.brand}  
+    Kapasitas: ${input.capacity}  
+    Warna: ${input.color}  
+    Harga: Rp${product.price.toLocaleString('id-ID')}  
+    Jumlah: ${input.quantity}`;
+
+    history.push({
+      pathname: '/chats',
+      search: '?message=abc',
+      state: { order, receiver: product.UserId },
+    });
   };
 
   if (!product) {
@@ -103,12 +108,16 @@ export default function ProductDetail() {
                 <div className='Colors'>
                   <button
                     onClick={() => handleClickColor('Hitam')}
-                    className={colorSelected === 'Hitam' ? 'Color active' : 'Color'}
+                    className={
+                      colorSelected === 'Hitam' ? 'Color active' : 'Color'
+                    }
                     style={colorStyle}
                   ></button>
                   <button
                     onClick={() => handleClickColor('Putih')}
-                    className={colorSelected === 'Putih' ? 'Color active' : 'Color'}
+                    className={
+                      colorSelected === 'Putih' ? 'Color active' : 'Color'
+                    }
                     style={{
                       backgroundColor: '#ffffff',
                       width: '40px',
@@ -123,13 +132,21 @@ export default function ProductDetail() {
                 <div className='Capacities'>
                   <button
                     onClick={() => handleClickCapacity('16 GB')}
-                    className={capacitySelected === '16 GB' ? 'Capacity active' : 'Capacity'}
+                    className={
+                      capacitySelected === '16 GB'
+                        ? 'Capacity active'
+                        : 'Capacity'
+                    }
                   >
                     16 GB
                   </button>
                   <button
                     onClick={() => handleClickCapacity('32 GB')}
-                    className={capacitySelected === '32 GB' ? 'Capacity active' : 'Capacity'}
+                    className={
+                      capacitySelected === '32 GB'
+                        ? 'Capacity active'
+                        : 'Capacity'
+                    }
                   >
                     32 GB
                   </button>
@@ -140,18 +157,24 @@ export default function ProductDetail() {
                 <p className='QuantityWord'>QTY</p>
                 <button
                   className='btn-decrease'
-                  onClick={(e) => setInput({ ...input, quantity: input.quantity - 1 })}
+                  onClick={(e) =>
+                    setInput({ ...input, quantity: input.quantity - 1 })
+                  }
                 >
                   -
                 </button>
                 <input
                   type='number'
-                  onChange={(e) => setInput({ ...input, quantity: Number(e.target.value) })}
+                  onChange={(e) =>
+                    setInput({ ...input, quantity: Number(e.target.value) })
+                  }
                   value={input.quantity}
                 ></input>
                 <button
                   className='btn-add'
-                  onClick={(e) => setInput({ ...input, quantity: input.quantity + 1 })}
+                  onClick={(e) =>
+                    setInput({ ...input, quantity: input.quantity + 1 })
+                  }
                 >
                   +
                 </button>
@@ -166,7 +189,8 @@ export default function ProductDetail() {
                   viewBox='0 0 24 24'
                   strokeWidth={1}
                   stroke='currentColor'
-                  fill='#fff'
+                  fill='none'
+                  // fill='#fff'
                   strokeLinecap='round'
                   strokeLinejoin='round'
                 >
@@ -205,11 +229,17 @@ export default function ProductDetail() {
 
         <div className='DetailReview'>
           <div className='Tabs'>
-            <button onClick={() => setTabActive(1)} className={tabActive === 1 ? 'active' : ''}>
+            <button
+              onClick={() => setTabActive(1)}
+              className={tabActive === 1 ? 'active' : ''}
+            >
               Product Detail
             </button>
 
-            <button onClick={() => setTabActive(2)} className={tabActive === 2 ? 'active' : ''}>
+            <button
+              onClick={() => setTabActive(2)}
+              className={tabActive === 2 ? 'active' : ''}
+            >
               Testimonial
             </button>
           </div>
@@ -218,7 +248,9 @@ export default function ProductDetail() {
 
           {tabActive === 1 && (
             <div>
-              <p dangerouslySetInnerHTML={{ __html: marked(product.detail) }}></p>
+              <p
+                dangerouslySetInnerHTML={{ __html: marked(product.detail) }}
+              ></p>
             </div>
           )}
 

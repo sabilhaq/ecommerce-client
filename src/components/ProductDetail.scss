@@ -3,7 +3,7 @@
   flex-direction: column;
   padding: 2rem;
   max-width: 1500px;
-  margin: auto;
+  padding-top: 5rem;
 
   &.Loading {
     justify-content: center;
@@ -20,6 +20,8 @@
     .PhotoContainer {
       flex-shrink: 0;
       width: 432px;
+      display: flex;
+      align-items: center;
     }
 
     .Detail {

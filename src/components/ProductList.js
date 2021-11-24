@@ -18,13 +18,6 @@ export default function ProductList() {
     dispatch(loadProducts());
   }, [dispatch]);
 
-  // const resend = useCallback(
-  //   (id, title) => {
-  //     dispatch(resendProduct(id, title));
-  //   },
-  //   [dispatch]
-  // );
-
   // const remove = useCallback(
   //   (id) => {
   //     dispatch(removeProduct(id));
@@ -45,6 +38,7 @@ export default function ProductList() {
       rate={item.rate}
       description={item.description}
       price={item.price}
+      photos={item.photos}
       UserId={item.UserId}
       // resend={() => resend(item._id, item.title)}
       // remove={() => remove(item._id)}
