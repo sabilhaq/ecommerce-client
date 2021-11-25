@@ -37,9 +37,13 @@ export default function ProductItem(props) {
           }}
         >
           <img
-            src={props.photos && `${process.env.REACT_APP_BASE_URL}${props.photos[0]}`}
+            src={
+              props.photos &&
+              `${process.env.REACT_APP_BASE_URL}${props.photos[0]}`
+            }
             alt='Samsung'
             height='100%'
+            style={{ maxWidth: '100%' }}
           />
         </div>
         <div className='Title'>{props.title}</div>
