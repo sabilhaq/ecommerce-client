@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { loadProducts } from '../actions';
+import { loadMoreProducts, loadProducts } from '../actions';
 import ProductItem from './ProductItem';
 import './ProductList.scss';
 
@@ -15,7 +15,8 @@ export default function ProductList() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadProducts());
+    localStorage.removeItem('search');
+    dispatch(loadProducts({}));
   }, [dispatch]);
 
   // const remove = useCallback(
@@ -25,11 +26,14 @@ export default function ProductList() {
   //   [dispatch]
   // );
 
+  // const handleLoadMore = (e) => {
   const handleLoadMore = () => {
-    // todo: loadMore
+    if (!products.noData) {
+      dispatch(loadMoreProducts({ page: products.page + 1 }));
+    }
   };
 
-  const nodeList = products.map((item) => (
+  const nodeList = products.products.map((item) => (
     <ProductItem
       key={item.id}
       id={item.id}
@@ -40,8 +44,8 @@ export default function ProductList() {
       price={item.price}
       photos={item.photos}
       UserId={item.UserId}
-      // resend={() => resend(item._id, item.title)}
-      // remove={() => remove(item._id)}
+    // resend={() => resend(item._id, item.title)}
+    // remove={() => remove(item._id)}
     />
   ));
 
@@ -58,7 +62,7 @@ export default function ProductList() {
       <div className='ProductList'>{nodeList}</div>
 
       <div className='More'>
-        <button onClick={handleLoadMore}>Load more</button>
+        {!localStorage.getItem('search') && <button onClick={handleLoadMore}>Load more</button>}
       </div>
     </React.Fragment>
   );

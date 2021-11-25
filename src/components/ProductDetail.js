@@ -12,7 +12,7 @@ export default function ProductDetail() {
 
   const { product } = useSelector(
     (state) => ({
-      product: state.products[0],
+      product: state.products.products[0],
     }),
     shallowEqual
   );
@@ -78,7 +78,7 @@ export default function ProductDetail() {
         <div className='Product'>
           <div className='PhotoContainer'>
             <img
-              src='https://www.bhphotovideo.com/images/images1000x1000/samsung_i337_white_galaxy_s4_sgh_i337_16gb_1054606.jpg'
+              src={product.photos && `${process.env.REACT_APP_BASE_URL}${product.photos[0]}`}
               alt='Samsung'
               width='100%'
             />
@@ -108,16 +108,12 @@ export default function ProductDetail() {
                 <div className='Colors'>
                   <button
                     onClick={() => handleClickColor('Hitam')}
-                    className={
-                      colorSelected === 'Hitam' ? 'Color active' : 'Color'
-                    }
+                    className={colorSelected === 'Hitam' ? 'Color active' : 'Color'}
                     style={colorStyle}
                   ></button>
                   <button
                     onClick={() => handleClickColor('Putih')}
-                    className={
-                      colorSelected === 'Putih' ? 'Color active' : 'Color'
-                    }
+                    className={colorSelected === 'Putih' ? 'Color active' : 'Color'}
                     style={{
                       backgroundColor: '#ffffff',
                       width: '40px',
@@ -132,21 +128,13 @@ export default function ProductDetail() {
                 <div className='Capacities'>
                   <button
                     onClick={() => handleClickCapacity('16 GB')}
-                    className={
-                      capacitySelected === '16 GB'
-                        ? 'Capacity active'
-                        : 'Capacity'
-                    }
+                    className={capacitySelected === '16 GB' ? 'Capacity active' : 'Capacity'}
                   >
                     16 GB
                   </button>
                   <button
                     onClick={() => handleClickCapacity('32 GB')}
-                    className={
-                      capacitySelected === '32 GB'
-                        ? 'Capacity active'
-                        : 'Capacity'
-                    }
+                    className={capacitySelected === '32 GB' ? 'Capacity active' : 'Capacity'}
                   >
                     32 GB
                   </button>
@@ -157,24 +145,18 @@ export default function ProductDetail() {
                 <p className='QuantityWord'>QTY</p>
                 <button
                   className='btn-decrease'
-                  onClick={(e) =>
-                    setInput({ ...input, quantity: input.quantity - 1 })
-                  }
+                  onClick={(e) => setInput({ ...input, quantity: input.quantity - 1 })}
                 >
                   -
                 </button>
                 <input
                   type='number'
-                  onChange={(e) =>
-                    setInput({ ...input, quantity: Number(e.target.value) })
-                  }
+                  onChange={(e) => setInput({ ...input, quantity: Number(e.target.value) })}
                   value={input.quantity}
                 ></input>
                 <button
                   className='btn-add'
-                  onClick={(e) =>
-                    setInput({ ...input, quantity: input.quantity + 1 })
-                  }
+                  onClick={(e) => setInput({ ...input, quantity: input.quantity + 1 })}
                 >
                   +
                 </button>
@@ -229,17 +211,11 @@ export default function ProductDetail() {
 
         <div className='DetailReview'>
           <div className='Tabs'>
-            <button
-              onClick={() => setTabActive(1)}
-              className={tabActive === 1 ? 'active' : ''}
-            >
+            <button onClick={() => setTabActive(1)} className={tabActive === 1 ? 'active' : ''}>
               Product Detail
             </button>
 
-            <button
-              onClick={() => setTabActive(2)}
-              className={tabActive === 2 ? 'active' : ''}
-            >
+            <button onClick={() => setTabActive(2)} className={tabActive === 2 ? 'active' : ''}>
               Testimonial
             </button>
           </div>
@@ -248,9 +224,7 @@ export default function ProductDetail() {
 
           {tabActive === 1 && (
             <div>
-              <p
-                dangerouslySetInnerHTML={{ __html: marked(product.detail) }}
-              ></p>
+              <p dangerouslySetInnerHTML={{ __html: marked(product.detail) }}></p>
             </div>
           )}
 

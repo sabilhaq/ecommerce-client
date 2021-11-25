@@ -1,8 +1,19 @@
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+import { loadProducts } from '../actions';
 import './Navbar.scss';
 
 export default function Navbar() {
+  const dispatch = useDispatch();
   let history = useHistory();
+  const [search, setSearch] = useState('');
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    localStorage.setItem('search', search);
+    dispatch(loadProducts({ page: 1, title: search }));
+  };
 
   const handleLogout = () => {
     localStorage.removeItem('email');
@@ -49,12 +60,14 @@ export default function Navbar() {
 
             <form className='d-flex Search'>
               <input
+                onChange={(e) => setSearch(e.target.value)}
                 className='form-control me-2'
                 type='search'
                 placeholder='Search'
                 aria-label='Search'
               ></input>
               <button
+                onClick={handleSearch}
                 className='btn btn-outline-success btn-search'
                 type='submit'
               >
@@ -64,11 +77,7 @@ export default function Navbar() {
           </ul>
 
           {localStorage.getItem('token') ? (
-            <button
-              onClick={() => handleLogout()}
-              className='btn btn-outline-danger'
-              type='submit'
-            >
+            <button onClick={() => handleLogout()} className='btn btn-outline-danger' type='submit'>
               Logout
             </button>
           ) : (

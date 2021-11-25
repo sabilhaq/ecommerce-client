@@ -6,7 +6,7 @@ import { addChat } from '../actions';
 export default function ChatForm(props) {
   const dispatch = useDispatch();
   const location = useLocation();
-  const [content, setContent] = useState(location.state.order);
+  const [content, setContent] = useState(location.state?.order);
 
   const handleChange = (event) => {
     event.target.style.height = '5px';
@@ -45,8 +45,7 @@ export default function ChatForm(props) {
           rows='1'
           placeholder='Write your chat here...'
           value={content}
-          // disabled={!props.receiver}
-          disabled={false}
+          disabled={!props.receiver && !location.state.receiver}
         ></textarea>
 
         <button className='Send'>

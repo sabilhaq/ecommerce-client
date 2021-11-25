@@ -11,6 +11,10 @@ import {
   // REMOVE_PRODUCT,
   // REMOVE_PRODUCT_SUCCESS,
   // REMOVE_PRODUCT_FAILURE,
+  LOAD_MORE_PRODUCTS,
+  LOAD_MORE_PRODUCTS_SUCCESS,
+  LOAD_MORE_PRODUCTS_FAILURE,
+
   LOAD_CHATS_SUCCESS,
   LOAD_CHATS_FAILURE,
   LOAD_CHATS,
@@ -29,8 +33,9 @@ export const loadProductsFailure = () => ({
   type: LOAD_PRODUCTS_FAILURE,
 });
 
-export const loadProducts = () => ({
+export const loadProducts = (queryStringObj) => ({
   type: LOAD_PRODUCTS,
+  queryStringObj,
 });
 
 export const loadProductSuccess = (product) => ({
@@ -57,11 +62,26 @@ export const addProductFailure = (id) => ({
   id,
 });
 
-export const addProduct = (id,input) => ({
+export const addProduct = (id, input) => ({
   type: ADD_PRODUCT,
   id,
   input,
 });
+
+export const loadMoreProducts = (queryStringObj) => ({
+  type: LOAD_MORE_PRODUCTS,
+  queryStringObj,
+});
+
+export const loadMoreProductsSuccess = (products) => ({
+  type: LOAD_MORE_PRODUCTS_SUCCESS,
+  products,
+});
+
+export const loadMoreProductsFailure = () => ({
+  type: LOAD_MORE_PRODUCTS_FAILURE,
+});
+
 
 // export const removeProductSuccess = (id) => ({
 //   type: REMOVE_PRODUCT_SUCCESS,

@@ -3,6 +3,7 @@ import * as products from './products';
 import * as chats from './chats';
 import {
   LOAD_PRODUCTS,
+  LOAD_MORE_PRODUCTS,
   LOAD_PRODUCT,
   ADD_PRODUCT,
   LOAD_CHATS,
@@ -12,6 +13,7 @@ import {
 export default function* rootSaga() {
   yield all([
     takeEvery(LOAD_PRODUCTS, products.loadProducts),
+    takeEvery(LOAD_MORE_PRODUCTS, products.loadMoreProducts),
     takeEvery(LOAD_PRODUCT, products.loadProduct),
     takeEvery(ADD_PRODUCT, products.addProduct),
     takeEvery(LOAD_CHATS, chats.loadChats),

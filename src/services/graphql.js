@@ -5,10 +5,14 @@ const client = new ApolloClient({
   uri: 'http://localhost:3001/graphql',
 });
 
-export const loadProducts = () => {
+export const loadProducts = (queryStringObj) => {
+  let { page, title } = queryStringObj;
+  page = page ? page : 1;
+  title = title ? title : '';
+
   const GET_PRODUCTS = gql`
-    {
-      getProducts {
+    query getProducts($title: String, $page: Int) {
+      getProducts(title: $title, page: $page) {
         id
         title
         rate
@@ -21,7 +25,7 @@ export const loadProducts = () => {
     }
   `;
   return client
-    .query({ query: GET_PRODUCTS })
+    .query({ query: GET_PRODUCTS, variables: { page, title } })
     .then((response) => response.data.getProducts)
     .catch((err) => {
       throw err;
@@ -37,6 +41,7 @@ export const loadProduct = (id) => {
         brand
         votes
         price
+        photos
         detail
         UserId
         createdAt
@@ -56,17 +61,7 @@ export const loadProduct = (id) => {
 };
 
 export const addProduct = (id, input) => {
-  const {
-    title,
-    rate,
-    description,
-    brand,
-    detail,
-    quantity,
-    price,
-    userId,
-    photos,
-  } = input;
+  const { title, rate, description, brand, detail, quantity, price, userId, photos } = input;
   const ADD_PRODUCT = gql`
     mutation createProduct(
       $id: String!
@@ -159,20 +154,10 @@ export const loadChats = (param) => {
 };
 
 export const addChat = (input) => {
-  const {
-    content,
-    sender,
-    receiver,
-  } = input;
+  const { content, sender, receiver } = input;
   const ADD_CHAT = gql`
-    mutation createChat(
-      $content: String!
-      $sender: String!
-      $receiver: String!
-    ) {
-      createChat(
-        input: { content: $content, sender: $sender, receiver: $receiver }
-      ) {
+    mutation createChat($content: String!, $sender: String!, $receiver: String!) {
+      createChat(input: { content: $content, sender: $sender, receiver: $receiver }) {
         _id
         status
         content
